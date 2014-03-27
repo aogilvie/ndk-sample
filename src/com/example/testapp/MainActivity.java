@@ -3,15 +3,20 @@ package com.example.testapp;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.content.res.AssetManager;
 
 public class MainActivity extends Activity {
 
+	public static AssetManager assetManager;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		nativeMyFunction("Hello world");
+		assetManager = getResources().getAssets();
+		
+		nativeMyFunction("Hello world", assetManager);
 	}
 
 	@Override
@@ -21,7 +26,7 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
-	public native void nativeMyFunction(String message);
+	public native void nativeMyFunction(String message, AssetManager mgr);
 	
 	static {
 	    System.loadLibrary("testLib");
